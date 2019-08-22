@@ -1,0 +1,38 @@
+{
+  "name": "splitmix",
+  "version": "0.0.1",
+  "description": "A splittable random number generator using the SplitMix algorithm from \"Fast Splittable Pseudorandom Number Generators\" by Steele, Lea, and Flood.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/derekelkins/splitmix.git"
+  },
+  "keywords": [
+    "random",
+    "number",
+    "generator",
+    "seed",
+    "split",
+    "splitmix"
+  ],
+  "author": "Derek Elkins",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/derekelkins/splitmix/issues"
+  },
+  "homepage": "https://github.com/derekelkins/splitmix#readme",
+  "dependencies": {
+    "long": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/long": "^4.0.0",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.3"
+  }
+}
