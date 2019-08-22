@@ -5,7 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run test"
   },
   "repository": {
     "type": "git",
@@ -34,5 +36,13 @@
     "jest": "^24.9.0",
     "ts-jest": "^24.0.2",
     "typescript": "^3.5.3"
-  }
+  },
+  "files": [
+    "LICENSE",
+    "dist/index.js",
+    "dist/index.d.ts"
+  ],
+  "types": [
+    "dist/index.d.ts"
+  ]
 }
