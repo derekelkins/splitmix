@@ -1,0 +1,7 @@
+title: SplitMix
+description: Implements the SplitMix algorithm from Fast Splittable Pseudorandom Number Generators by Steele, Lea, and Flood.
+show_downloads: false
+google_analytics:
+theme: jekyll-theme-minimal
+include:
+    - "_*_*.html"
