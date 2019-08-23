@@ -124,3 +124,53 @@ describe('RandomGen matches reference data', () => {
     expect(produceTree(stateful, 12)).toEqual(referenceTreeSEED1);
   });
 });
+
+describe('Examples work as intended', () => {
+  const treeOutput = [[[[0.4382465659417025,0.8734631524118771],[0.047765269650215436,0.4964402932473151]],[[0.10112738435461743,0.625463498385489],[0.6710799612764186,0.020432215205735238]]],[[[0.5153629602985077,0.316364087974514],[0.7710383327418728,0.10249903842969221]],[[0.6704038609885928,0.7219432349126184],[0.95580166227448,0.046613679615845616]]]]
+  test('Random sequential example', () => {
+    const seed = 42;
+    const rng = new Random(seed);
+    const a = rng.get(); // 0 <= a < 1
+    const nextRng = rng.next();
+    const b = nextRng.get(); // 0 <= b < 1
+    const a2 = rng.get(); // a === a2
+    expect([a === a2, a !== b]).toEqual([true, true]);
+  });
+  test('Random parallel example', async () => {
+    const randomTree: (depth: number, rng: Random) => Promise<any> = async (depth, rng) => {
+      if (depth <= 0) {
+        return rng.get();
+      } else {
+        const [leftRng, rightRng] = rng.split();
+        return await Promise.all([
+          randomTree(depth-1, leftRng),
+          randomTree(depth-1, rightRng)
+        ]);
+      }
+    };
+    const seed = 42;
+    expect(await randomTree(4, new Random(seed))).toEqual(treeOutput);
+  });
+  test('RandomGen sequential example', () => {
+    const seed = 42;
+    const rng = new RandomGen(seed);
+    const a = rng.next(); // 0 <= a < 1
+    const b = rng.next(); // 0 <= b < 1
+    expect(a !== b).toEqual(true);
+  });
+  test('RandomGen parallel example', async () => {
+    const randomTree: (depth: number, rng: RandomGen) => Promise<any> = async (depth, rng) => {
+      if (depth <= 0) {
+        return rng.next();
+      } else {
+        const rightRng = rng.split();
+        return await Promise.all([
+          randomTree(depth-1, rng),
+          randomTree(depth-1, rightRng)
+        ]);
+      }
+    };
+    const seed = 42;
+    expect(await randomTree(4, new RandomGen(seed))).toEqual(treeOutput);
+  });
+});
